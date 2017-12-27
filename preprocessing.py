@@ -16,22 +16,26 @@ def get_score_names():
     return np.load('./data/score_names.npy')
 
 
-@lru_cache(maxsize=1)
-def get_score_tensors():
+@lru_cache()
+def get_score_tensors(n=None):
     print('Loading score tensors from disk')
     sys.stdout.flush()
     score_names = get_score_names()
+    if n is not None:
+        score_names = score_names[:n]
     return [
         (np.load('./data/{}.npy'.format(i)))
         for i in tqdm(range(len(score_names)))
     ]
 
 
-@lru_cache(maxsize=1)
-def get_metadata_tensors():
+@lru_cache()
+def get_metadata_tensors(n=None):
     print('Loading metadata tensors from disk')
     sys.stdout.flush()
     score_names = get_score_names()
+    if n is not None:
+        score_names = score_names[:n + 1]
     return [
         (np.load('./data/{}_meta.npy'.format(i)))
         for i in tqdm(range(len(score_names)))

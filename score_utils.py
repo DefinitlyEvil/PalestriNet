@@ -94,7 +94,6 @@ def tensor_to_score(score_tensor, meta_tensor):
     # TODO: this seems to create accurate output when played as a midi,
     # but doesn't render the rhythms correctly in musescore.
     beats = np.argmax(meta_tensor[:, :, idx_beat:], axis=2)/2
-    print(beats)
     measure_length = np.max(beats) + 0.5
     score = music21.stream.Score()
     n_parts, n_beats = score_tensor.shape
